@@ -1,0 +1,21 @@
+SELECT MONTHNAME(od.created_at),month(od.created_at),
+    (SELECT count(o.id) FROM orders as o 
+    where month(o.created_at) = month(od.created_at)) as rec
+    FROM orders as od 
+    where od.created_at<= CURRENT_DATE() 
+    and od.created_at >= DATE_ADD(Now(), INTERVAL- 6 MONTH) 
+    and od.visiblity_listing_id in (9) 
+    group by month(od.created_at)
+
+
+SELECT MONTHNAME(od.created_at),
+    month(od.created_at),count(*) as total
+    FROM orders as od 
+    where od.created_at<= CURRENT_DATE() 
+    and od.created_at >= DATE_ADD(Now(), INTERVAL- 6 MONTH)     
+    and od.visiblity_listing_id in (5,71,30)
+group by month(od.created_at)
+
+SELECT DATE_FORMAT(od.created_at, '%b'),month(od.created_at),count(*) as total FROM orders as od where od.created_at<= CURRENT_DATE() and od.created_at >= DATE_ADD(Now(), INTERVAL- 6 MONTH) 
+and od.visiblity_listing_id in (5,71,30)
+group by month(od.created_at)
